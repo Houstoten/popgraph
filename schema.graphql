@@ -1,6 +1,28 @@
-type ExampleEntity @entity {
+scalar BigInt
+
+type ConnectionNFT @entity {
   id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  approved: Bytes! # address
+  tokenID: BigInt!
+  contentURI: String!
+  metadataURI: String!
+  createdAtTimestamp: BigInt!
+  creator: User!
+  owner: User!
+}
+
+# type ConnectionNFTResponse @entity {
+#   id: ID!
+#   tokenID: BigInt!
+#   contentURI: String!
+#   metadataURI: String!
+#   createdAtTimestamp: BigInt!
+#   creator: User!
+#   owner: User!
+#   requestToken: ConnectionNFT!
+# }
+
+type User @entity {
+  id: ID!
+  tokens: [ConnectionNFT!]! @derivedFrom(field: "owner")
+  created: [ConnectionNFT!]! @derivedFrom(field: "creator")
 }
