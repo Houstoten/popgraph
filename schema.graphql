@@ -1,5 +1,13 @@
 scalar BigInt
 
+schema {
+  query: GetUserTokens
+}
+
+type GetUserTokens {
+  user(id: ID!): User
+}
+
 type ConnectionNFT @entity {
   id: ID!
   tokenID: BigInt!
