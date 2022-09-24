@@ -23,3 +23,5 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/po-pbase.ts
+features:
+  - ipfsOnEthereumContracts

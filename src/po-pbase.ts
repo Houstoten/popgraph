@@ -24,13 +24,26 @@ export function handleTransfer(event: Transfer): void {
     connectionNFT.metadataURI = popBaseContract.tokenURI(event.params.tokenId)
   }
 
-  // const ipfsData = ipfs.cat(connectionNFT.metadataURI.split("/").at(-1))
+  const ipfsData = ipfs.cat(connectionNFT.metadataURI.split("/").at(-1))
 
-  // if(ipfsData){
-  //   const jsonIpfsData = json.fromBytes(ipfsData).toObject()
-  //    jsonIpfsData.get("request") 
+  if(ipfsData){
+    const jsonIpfsData = json.fromBytes(ipfsData).toObject()
 
-  // }
+    const name = jsonIpfsData.get("name") 
+    if(name !== null) {
+      connectionNFT.name = name.toString()
+    }
+
+    const description = jsonIpfsData.get("description") 
+    if(description !== null) {
+      connectionNFT.description = description.toString()
+    }
+
+    const image = jsonIpfsData.get("image") 
+    if(image !== null) {
+      connectionNFT.image = image.toString()
+    }
+  }
   connectionNFT.owner = event.params.to.toHexString()
   connectionNFT.save()
 
